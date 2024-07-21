@@ -4,7 +4,7 @@
 with the [Re-turn](https://re-turn.ie/) scheme.
 
 The Re-turn scheme is Ireland's
-[deposit-return scheme](https://en.wikipedia.org/wiki/Deposit-refund_system),
+[deposit-return scheme](https://en.wikipedia.org/wiki/Container-deposit_legislation),
 launched in February 2024 to reduce littering and increase recycling rates for
 PET bottles and aluminium cans. Between February and June 2024, there was a
 transition period, whereby retailers could still sell old drink containers that
