@@ -34,8 +34,7 @@ on your shopping... <sup>I hope...</sup>
 ```
 usage: pyturn.py [-h] [-f FILE] [-o] [BARCODES ...]
 
-A script for checking if a drink container's barcode is registered with the
-Re-turn scheme.
+Check if a drink container's barcode is registered with the Re-turn scheme.
 
 positional arguments:
   BARCODES              the barcodes on your drink containers

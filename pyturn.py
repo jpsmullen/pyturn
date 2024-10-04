@@ -62,8 +62,8 @@ def main() -> None:
     # Set up argparse
     parser = argparse.ArgumentParser(
         description="""
-        A script for checking if a drink container's barcode is
-        registered with the Re-turn scheme.
+        Check if a drink container's barcode is registered with the
+        Re-turn scheme.
         """,
 
         add_help=True,
