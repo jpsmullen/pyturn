@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 """
-A script for checking if a drink container's barcode is registered with
-the Re-turn scheme.
+Check if a drink container's barcode is registered with the Re-turn scheme.
 """
 
 import argparse
+import os.path
 import sys
+import warnings
 
 import requests
 
@@ -32,12 +33,8 @@ def is_returnable(barcode: str) -> bool:
     message = \
     "Your drink container is part of Re-turn Ireland’s Deposit Return Scheme."
 
-    try:
-        response = requests.post(url, data)
-        response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        print(f"Error connecting to {url}: {e}")
-        sys.exit(1)
+    response = requests.post(url, data)
+    response.raise_for_status()
 
     return message in response.text
 
@@ -45,15 +42,15 @@ def is_returnable(barcode: str) -> bool:
 def save_to_file(returnables: list[str]) -> None:
     """Save the list of returnable barcodes to a text file."""
 
-    try:
-        with open("returnables.txt", "w", encoding="utf-8") as file:
-            for barcode in returnables:
-                file.write(f"{barcode}\n")
+    # Save the file in the current working directory (not necessarily
+    # the same directory as the script)
+    file_path = os.path.join(os.getcwd(), "returnables.txt")
 
-        print("Saved returnable barcodes to returnables.txt.")
-    except OSError as e:
-        print(f"Error writing to returnables.txt: {e}")
-        sys.exit(1)
+    with open(file_path, "w", encoding="utf-8") as file:
+        for barcode in returnables:
+            file.write(f"{barcode}\n")
+
+    print(f"Saved returnable barcodes to {file_path}.")
 
 
 def main() -> None:
@@ -100,7 +97,7 @@ def main() -> None:
                     if is_barcode(line := line.strip()):
                         args.barcodes.append(line)
         except OSError as e:
-            print(f"Error opening {args.file}: {e}")
+            warnings.warn(str(e))
 
     returnables = []
     non_returnables = []
@@ -133,7 +130,10 @@ def main() -> None:
         print("No valid barcodes provided.")
 
     if args.output and not returnables:
-        print("No returnable barcodes to save to returnables.txt.")
+        print(
+            "No returnable barcodes to save to",
+            f"{os.path.join(os.getcwd(), 'returnables.txt')}.",
+        )
 
 
 if __name__ == "__main__":

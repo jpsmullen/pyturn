@@ -1,2 +1,5 @@
+venv/
+__pycache__/
+
 barcodes.txt
 returnables.txt

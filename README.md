@@ -15,7 +15,7 @@ obviously all drink containers have the Re-turn logo on them by now.)
 
 There's a
 [barcode checker on the Re-turn website](https://re-turn.ie/consumer/#barcodeChecker);
-`pyturn` is essentially a command-line version of it with additional features.
+`pyturn` is essentially a command-line interface for it with additional features.
 
 I wrote a basic version of this script a few months ago, back when it would've
 been even somewhat useful, but I've decided to rewrite it and upload it now,
@@ -23,8 +23,16 @@ because why not? Maybe it'll come in handy if you find an old can or bottle
 lying around somewhere and you want to see if you can use it to get a discount
 on your shopping... <sup>I hope...</sup>
 
+## ✅ requirements
+
+- Python 3.8 or any later version
+- Cans or plastic bottles with barcodes on them
+- An internet connection
+
 ## 🛠️ setup
 
+- `git clone https://github.com/jpsmullen/pyturn.git`
+- `cd pyturn`
 - `python -m venv venv`
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
@@ -49,10 +57,10 @@ options:
 # Checking barcodes from the command line
 python pyturn.py 5000112635676 12345678 4008287058529
 
-# Checking barcodes from a file, and saving returnables to returnables.txt
-python pyturn.py -f barcodes.txt -o
+# Checking barcodes from a file
+python pyturn.py -f barcodes.txt
 
-# Checking and saving barcodes from both the command line and a file
+# Combining the above options, and saving returnables to returnables.txt
 python pyturn.py 4061459977998 87654321 -f barcodes.txt -o
 ```
 
