@@ -33,8 +33,12 @@ def is_returnable(barcode: str) -> bool:
     message = \
     "Your drink container is part of Re-turn Ireland’s Deposit Return Scheme."
 
-    response = requests.post(url, data)
-    response.raise_for_status()
+    try:
+        response = requests.post(url, data)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to {url}: {e}", file=sys.stderr)
+        sys.exit(1)
 
     return message in response.text
 
@@ -70,6 +74,7 @@ def main() -> None:
         "barcodes",
         help="the barcodes on your drink containers",
         nargs="*",
+        type=str,
         metavar="BARCODES",
     )
 
@@ -77,11 +82,12 @@ def main() -> None:
         "-f",
         "--file",
         help="read barcodes from a text file",
+        type=str,
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
+        "-s",
+        "--save",
         help="save returnable barcodes to a text file",
         action="store_true",
     )
@@ -119,7 +125,7 @@ def main() -> None:
         print(f"\nReturnable barcodes: {returnables}")
         print("Please recycle these at your nearest Re-turn machine.")
 
-        if args.output:
+        if args.save:
             save_to_file(returnables)
 
     if non_returnables:
@@ -129,11 +135,8 @@ def main() -> None:
     if not (returnables or non_returnables):
         print("No valid barcodes provided.")
 
-    if args.output and not returnables:
-        print(
-            "No returnable barcodes to save to",
-            f"{os.path.join(os.getcwd(), 'returnables.txt')}.",
-        )
+    if args.save and not returnables:
+        print("No returnable barcodes to save.")
 
 
 if __name__ == "__main__":

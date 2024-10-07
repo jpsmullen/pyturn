@@ -40,7 +40,7 @@ on your shopping... <sup>I hope...</sup>
 ## 🧑‍💻 usage
 
 ```
-usage: pyturn.py [-h] [-f FILE] [-o] [BARCODES ...]
+usage: pyturn.py [-h] [-f FILE] [-s] [BARCODES ...]
 
 Check if a drink container's barcode is registered with the Re-turn scheme.
 
@@ -50,7 +50,7 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -f FILE, --file FILE  read barcodes from a text file
-  -o, --output          save returnable barcodes to a text file
+  -s, --save            save returnable barcodes to a text file
 ```
 
 ```shell
@@ -61,7 +61,7 @@ python pyturn.py 5000112635676 12345678 4008287058529
 python pyturn.py -f barcodes.txt
 
 # Combining the above options, and saving returnables to returnables.txt
-python pyturn.py 4061459977998 87654321 -f barcodes.txt -o
+python pyturn.py 4061459977998 87654321 -f barcodes.txt -s
 ```
 
 ## ⚠️ disclaimer
